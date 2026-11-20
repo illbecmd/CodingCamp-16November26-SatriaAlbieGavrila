@@ -1,0 +1,246 @@
+{
+  "pbtResults": {},
+  "executionHistory": {
+    "1. Scaffold project files and define core data contracts": [
+      {
+        "executionId": "ae444ccb-2fbd-48fe-a1c0-becb6a5a6113",
+        "chatSessionId": "sess_b7930aa7-eae3-4b26-946e-96b33dd371d9",
+        "timestamp": 1795093911512
+      },
+      {
+        "executionId": "ae444ccb-2fbd-48fe-a1c0-becb6a5a6113",
+        "chatSessionId": "sess_b7930aa7-eae3-4b26-946e-96b33dd371d9",
+        "timestamp": 1795094138503
+      }
+    ],
+    "2.1 Implement `isAvailable()`, `load(key)`, and `save(key, data)`": [
+      {
+        "executionId": "9f9b1c80-73c5-4b55-b5f4-38f47b5f65a4",
+        "chatSessionId": "sess_0ba959cc-a960-43e6-95c6-b2bd5eaa0863",
+        "timestamp": 1795094186298
+      },
+      {
+        "executionId": "9f9b1c80-73c5-4b55-b5f4-38f47b5f65a4",
+        "chatSessionId": "sess_0ba959cc-a960-43e6-95c6-b2bd5eaa0863",
+        "timestamp": 1795094257105
+      }
+    ],
+    "2. Implement `StorageManager`": [
+      {
+        "executionId": "9f9b1c80-73c5-4b55-b5f4-38f47b5f65a4",
+        "chatSessionId": "sess_0ba959cc-a960-43e6-95c6-b2bd5eaa0863",
+        "timestamp": 1795094257228
+      }
+    ],
+    "3.1 Implement `formatTime(d)`, `formatDate(d)`, `getGreeting(hour)`, `tick()`, and `init()`": [
+      {
+        "executionId": "efe26125-0328-471b-ae99-f90ad4c9b5ba",
+        "chatSessionId": "sess_22392b2a-f7dd-4b47-af6c-9d6ca83a0ce5",
+        "timestamp": 1795094298175
+      },
+      {
+        "executionId": "efe26125-0328-471b-ae99-f90ad4c9b5ba",
+        "chatSessionId": "sess_22392b2a-f7dd-4b47-af6c-9d6ca83a0ce5",
+        "timestamp": 1795094695045
+      }
+    ],
+    "3. Implement `GreetingWidget`": [
+      {
+        "executionId": "efe26125-0328-471b-ae99-f90ad4c9b5ba",
+        "chatSessionId": "sess_22392b2a-f7dd-4b47-af6c-9d6ca83a0ce5",
+        "timestamp": 1795094695200
+      }
+    ],
+    "4. Implement `TimerWidget`": [
+      {
+        "executionId": "4a2a42fe-669f-48fb-b1d7-2f7ce4daaa2d",
+        "chatSessionId": "sess_8fca0d35-554c-433b-a639-3a543d0d4be7",
+        "timestamp": 1795094720232
+      },
+      {
+        "executionId": "4a2a42fe-669f-48fb-b1d7-2f7ce4daaa2d",
+        "chatSessionId": "sess_8fca0d35-554c-433b-a639-3a543d0d4be7",
+        "timestamp": 1795095356444
+      }
+    ],
+    "5.1 Implement `init(tasks)`, `addTask(title)`, and `render()`": [
+      {
+        "executionId": "5d3a5c65-240d-4e2b-9634-688470b72657",
+        "chatSessionId": "sess_93818a1c-84b5-46bd-b313-ac993541f7c0",
+        "timestamp": 1795095403293
+      },
+      {
+        "executionId": "5d3a5c65-240d-4e2b-9634-688470b72657",
+        "chatSessionId": "sess_93818a1c-84b5-46bd-b313-ac993541f7c0",
+        "timestamp": 1795095907227
+      }
+    ],
+    "5.4 Implement `toggleTask(id)`, `beginEdit(id)`, `confirmEdit(id, value)`, `cancelEdit(id)`, and `deleteTask(id)`": [
+      {
+        "executionId": "5d3a5c65-240d-4e2b-9634-688470b72657",
+        "chatSessionId": "sess_93818a1c-84b5-46bd-b313-ac993541f7c0",
+        "timestamp": 1795095915830
+      },
+      {
+        "executionId": "5d3a5c65-240d-4e2b-9634-688470b72657",
+        "chatSessionId": "sess_93818a1c-84b5-46bd-b313-ac993541f7c0",
+        "timestamp": 1795096099395
+      }
+    ],
+    "5. Implement `TaskListWidget`": [
+      {
+        "executionId": "5d3a5c65-240d-4e2b-9634-688470b72657",
+        "chatSessionId": "sess_93818a1c-84b5-46bd-b313-ac993541f7c0",
+        "timestamp": 1795096099534
+      }
+    ],
+    "7. Implement `QuickLinksWidget`": [
+      {
+        "executionId": "a4e4a808-0e78-4362-b4c1-77a59306706f",
+        "chatSessionId": "sess_891bf996-ef18-48ea-bb18-ca792c6f8cc6",
+        "timestamp": 1795096977560
+      },
+      {
+        "executionId": "a4e4a808-0e78-4362-b4c1-77a59306706f",
+        "chatSessionId": "sess_891bf996-ef18-48ea-bb18-ca792c6f8cc6",
+        "timestamp": 1795097302702
+      }
+    ],
+    "4.1 Implement timer state machine and countdown logic": [
+      {
+        "executionId": "fc82dba9-4aac-409f-a648-aa2d10780329",
+        "chatSessionId": "sess_a24b343f-233a-47b8-9df5-35a6829e4979",
+        "timestamp": 1795097322986
+      },
+      {
+        "executionId": "fc82dba9-4aac-409f-a648-aa2d10780329",
+        "chatSessionId": "sess_a24b343f-233a-47b8-9df5-35a6829e4979",
+        "timestamp": 1795097352275
+      },
+      {
+        "executionId": "fc82dba9-4aac-409f-a648-aa2d10780329",
+        "chatSessionId": "sess_a24b343f-233a-47b8-9df5-35a6829e4979",
+        "timestamp": 1795097448190
+      }
+    ],
+    "6. Checkpoint — task list complete": [
+      {
+        "executionId": "fc82dba9-4aac-409f-a648-aa2d10780329",
+        "chatSessionId": "sess_a24b343f-233a-47b8-9df5-35a6829e4979",
+        "timestamp": 1795097323097
+      },
+      {
+        "executionId": "fc82dba9-4aac-409f-a648-aa2d10780329",
+        "chatSessionId": "sess_a24b343f-233a-47b8-9df5-35a6829e4979",
+        "timestamp": 1795097825157
+      },
+      {
+        "executionId": "fc82dba9-4aac-409f-a648-aa2d10780329",
+        "chatSessionId": "sess_a24b343f-233a-47b8-9df5-35a6829e4979",
+        "timestamp": 1795097917987
+      }
+    ],
+    "7.1 Implement `init(links)`, `addLink(label, url)`, and `render()`": [
+      {
+        "executionId": "fc82dba9-4aac-409f-a648-aa2d10780329",
+        "chatSessionId": "sess_a24b343f-233a-47b8-9df5-35a6829e4979",
+        "timestamp": 1795097323231
+      },
+      {
+        "executionId": "fc82dba9-4aac-409f-a648-aa2d10780329",
+        "chatSessionId": "sess_a24b343f-233a-47b8-9df5-35a6829e4979",
+        "timestamp": 1795097472730
+      },
+      {
+        "executionId": "fc82dba9-4aac-409f-a648-aa2d10780329",
+        "chatSessionId": "sess_a24b343f-233a-47b8-9df5-35a6829e4979",
+        "timestamp": 1795097526519
+      }
+    ],
+    "7.4 Implement `deleteLink(id)`": [
+      {
+        "executionId": "fc82dba9-4aac-409f-a648-aa2d10780329",
+        "chatSessionId": "sess_a24b343f-233a-47b8-9df5-35a6829e4979",
+        "timestamp": 1795097323414
+      },
+      {
+        "executionId": "fc82dba9-4aac-409f-a648-aa2d10780329",
+        "chatSessionId": "sess_a24b343f-233a-47b8-9df5-35a6829e4979",
+        "timestamp": 1795097534335
+      },
+      {
+        "executionId": "fc82dba9-4aac-409f-a648-aa2d10780329",
+        "chatSessionId": "sess_a24b343f-233a-47b8-9df5-35a6829e4979",
+        "timestamp": 1795097564497
+      }
+    ],
+    "8.1 Implement `BannerWidget` and `UIController.init()`": [
+      {
+        "executionId": "fc82dba9-4aac-409f-a648-aa2d10780329",
+        "chatSessionId": "sess_a24b343f-233a-47b8-9df5-35a6829e4979",
+        "timestamp": 1795097323552
+      },
+      {
+        "executionId": "fc82dba9-4aac-409f-a648-aa2d10780329",
+        "chatSessionId": "sess_a24b343f-233a-47b8-9df5-35a6829e4979",
+        "timestamp": 1795097574799
+      },
+      {
+        "executionId": "fc82dba9-4aac-409f-a648-aa2d10780329",
+        "chatSessionId": "sess_a24b343f-233a-47b8-9df5-35a6829e4979",
+        "timestamp": 1795097648613
+      }
+    ],
+    "8.2 Add keyboard navigation and focus indicators": [
+      {
+        "executionId": "fc82dba9-4aac-409f-a648-aa2d10780329",
+        "chatSessionId": "sess_a24b343f-233a-47b8-9df5-35a6829e4979",
+        "timestamp": 1795097323680
+      },
+      {
+        "executionId": "fc82dba9-4aac-409f-a648-aa2d10780329",
+        "chatSessionId": "sess_a24b343f-233a-47b8-9df5-35a6829e4979",
+        "timestamp": 1795097652764
+      },
+      {
+        "executionId": "fc82dba9-4aac-409f-a648-aa2d10780329",
+        "chatSessionId": "sess_a24b343f-233a-47b8-9df5-35a6829e4979",
+        "timestamp": 1795097818030
+      }
+    ],
+    "9. Final checkpoint — full integration": [
+      {
+        "executionId": "fc82dba9-4aac-409f-a648-aa2d10780329",
+        "chatSessionId": "sess_a24b343f-233a-47b8-9df5-35a6829e4979",
+        "timestamp": 1795097323815
+      },
+      {
+        "executionId": "fc82dba9-4aac-409f-a648-aa2d10780329",
+        "chatSessionId": "sess_a24b343f-233a-47b8-9df5-35a6829e4979",
+        "timestamp": 1795097922590
+      },
+      {
+        "executionId": "15a4cba5-b982-4725-979a-a9d030c2440a",
+        "chatSessionId": "sess_6bc704ce-995e-4864-be49-9199b8fdc8e9",
+        "timestamp": 1795098333104
+      },
+      {
+        "executionId": "4b3cc3ab-999e-4b9e-a73d-22c27aea59bd",
+        "chatSessionId": "sess_7d8f32ed-459c-45db-bc08-2650d9243b07",
+        "timestamp": 1795099121202
+      },
+      {
+        "executionId": "4b3cc3ab-999e-4b9e-a73d-22c27aea59bd",
+        "chatSessionId": "sess_7d8f32ed-459c-45db-bc08-2650d9243b07",
+        "timestamp": 1795099248798
+      }
+    ],
+    "8. Implement `BannerWidget` and wire all modules together": [
+      {
+        "executionId": "fc82dba9-4aac-409f-a648-aa2d10780329",
+        "chatSessionId": "sess_a24b343f-233a-47b8-9df5-35a6829e4979",
+        "timestamp": 1795097818225
+      }
+    ]
+  }
+}

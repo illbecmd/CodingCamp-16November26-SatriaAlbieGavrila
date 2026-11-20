@@ -1,0 +1,700 @@
+/* ============================================================
+   TODO Dashboard — style.css
+   Color tokens meet WCAG 2.1 AA (4.5:1 for normal text).
+   Typographic scale: headings are 1.25× body minimum.
+   Layout is responsive from 360 px to 2560 px.
+   ============================================================ */
+
+/* ------------------------------------------------------------
+   1. CSS Custom Properties (Design Tokens)
+   ------------------------------------------------------------ */
+:root {
+  /* Palette — dark text on light backgrounds */
+  --color-bg:          #f4f6f9;   /* page background                   */
+  --color-surface:     #ffffff;   /* widget card background             */
+  --color-surface-alt: #eef1f6;   /* subtle alternate surface           */
+  --color-border:      #c8cdd6;   /* visible widget boundary            */
+
+  /* Text — all pass 4.5:1 contrast against --color-surface (#fff) */
+  --color-text-primary:   #1a1d23; /* contrast ~16.9:1 on #fff           */
+  --color-text-secondary: #4a505e; /* contrast ~7.1:1 on #fff            */
+  --color-text-muted:     #6b7280; /* contrast ~4.6:1 on #fff            */
+
+  /* Accent */
+  --color-accent:          #1d60c6; /* buttons, links — 5.0:1 on #fff     */
+  --color-accent-hover:    #174fa8;
+  --color-accent-fg:       #ffffff; /* text on accent bg                  */
+
+  /* Danger / error */
+  --color-danger:    #b91c1c; /* 7.0:1 on #fff */
+  --color-danger-fg: #ffffff;
+
+  /* Success */
+  --color-success:    #15803d;
+  --color-success-fg: #ffffff;
+
+  /* Warning banner */
+  --color-banner-bg:   #fff7ed;
+  --color-banner-border: #f97316;
+  --color-banner-text:   #7c2d12; /* 7.6:1 on #fff7ed */
+
+  /* Strikethrough / completed task */
+  --color-completed-text: #6b7280; /* matches --color-text-muted */
+
+  /* Focus ring */
+  --focus-ring: 2px solid #1d60c6;
+  --focus-ring-offset: 2px;
+
+  /* Typography */
+  --font-family-base: system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  --font-size-base:   1rem;       /* 16 px */
+  --font-size-sm:     0.875rem;   /* 14 px */
+  --font-size-h1:     2.25rem;    /* 36 px — 2.25× base */
+  --font-size-h2:     1.5rem;     /* 24 px — 1.5× base  */
+  --font-size-h3:     1.25rem;    /* 20 px — 1.25× base (minimum ratio) */
+
+  --font-weight-normal: 400;
+  --font-weight-medium: 500;
+  --font-weight-bold:   700;
+
+  --line-height-base:    1.5;
+  --line-height-heading: 1.2;
+
+  /* Spacing scale (multiples of 4 px) */
+  --space-1:  0.25rem;  /*  4px */
+  --space-2:  0.5rem;   /*  8px */
+  --space-3:  0.75rem;  /* 12px */
+  --space-4:  1rem;     /* 16px */
+  --space-6:  1.5rem;   /* 24px */
+  --space-8:  2rem;     /* 32px */
+  --space-12: 3rem;     /* 48px */
+
+  /* Layout */
+  --widget-gap:    var(--space-6);
+  --widget-radius: 0.75rem;
+  --widget-shadow: 0 1px 4px rgba(0, 0, 0, 0.08), 0 2px 12px rgba(0, 0, 0, 0.06);
+
+  /* Transitions */
+  --transition-fast: 100ms ease;
+  --transition-base: 200ms ease;
+}
+
+/* ------------------------------------------------------------
+   2. Reset & Base
+   ------------------------------------------------------------ */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  font-size: 100%; /* respect browser base font size */
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: var(--font-family-base);
+  font-size: var(--font-size-base);
+  font-weight: var(--font-weight-normal);
+  line-height: var(--line-height-base);
+  color: var(--color-text-primary);
+  background-color: var(--color-bg);
+  min-height: 100dvh;
+  padding: var(--space-6) var(--space-4);
+}
+
+/* Visually hidden — accessible to screen readers */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* ------------------------------------------------------------
+   3. Focus Visible (WCAG 2.1 AA Focus Visible — min 2 px solid)
+   ------------------------------------------------------------ */
+:focus-visible {
+  outline: var(--focus-ring);
+  outline-offset: var(--focus-ring-offset);
+  border-radius: 3px;
+}
+
+/* Remove outline for mouse / touch (browsers that support :focus-visible) */
+:focus:not(:focus-visible) {
+  outline: none;
+}
+
+/* ------------------------------------------------------------
+   4. Typography
+   ------------------------------------------------------------ */
+h1, h2, h3, h4, h5, h6 {
+  font-weight: var(--font-weight-bold);
+  line-height: var(--line-height-heading);
+  color: var(--color-text-primary);
+}
+
+h1 { font-size: var(--font-size-h1); }
+h2 { font-size: var(--font-size-h2); }
+h3 { font-size: var(--font-size-h3); }
+
+p { margin: 0; }
+
+a {
+  color: var(--color-accent);
+  text-decoration: underline;
+}
+
+a:hover {
+  color: var(--color-accent-hover);
+}
+
+/* ------------------------------------------------------------
+   5. Storage Unavailability Banner
+   ------------------------------------------------------------ */
+.banner {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  padding: var(--space-3) var(--space-4);
+  margin-bottom: var(--space-4);
+  background-color: var(--color-banner-bg);
+  border: 1px solid var(--color-banner-border);
+  border-radius: var(--widget-radius);
+  color: var(--color-banner-text);
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-medium);
+
+  /* Position above content but not obscuring interactive controls */
+  position: sticky;
+  top: var(--space-4);
+  z-index: 100;
+}
+
+.banner--hidden {
+  display: none;
+}
+
+.banner__icon {
+  font-size: 1.1em;
+  flex-shrink: 0;
+}
+
+/* ------------------------------------------------------------
+   6. Dashboard Layout Grid
+   Responsive: single column on narrow screens,
+   2-column on medium, 2×2 grid on wide screens.
+   ------------------------------------------------------------ */
+.dashboard {
+  max-width: 1400px;
+  margin: 0 auto;
+  display: grid;
+  gap: var(--widget-gap);
+
+  /* Single column default (360 px+) */
+  grid-template-columns: 1fr;
+}
+
+/* Two-column layout from 640 px */
+@media (min-width: 640px) {
+  .dashboard {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+/* Four widgets in a 2×2 grid from 960 px */
+@media (min-width: 960px) {
+  .dashboard {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+/* Three-column layout from 1280 px — greeting + timer span top */
+@media (min-width: 1280px) {
+  .dashboard {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  .widget--greeting {
+    grid-column: 1 / 2;
+  }
+
+  .widget--timer {
+    grid-column: 2 / 3;
+  }
+
+  .widget--tasks {
+    grid-column: 3 / 4;
+    grid-row: 1 / 3;
+  }
+
+  .widget--links {
+    grid-column: 1 / 3;
+  }
+}
+
+/* ------------------------------------------------------------
+   7. Widget Card
+   ------------------------------------------------------------ */
+.widget {
+  background-color: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--widget-radius);
+  box-shadow: var(--widget-shadow);
+  overflow: hidden;
+}
+
+.widget__inner {
+  padding: var(--space-6);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+  height: 100%;
+}
+
+.widget__heading {
+  font-size: var(--font-size-h2);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-text-primary);
+  border-bottom: 2px solid var(--color-border);
+  padding-bottom: var(--space-3);
+  margin-bottom: var(--space-2);
+}
+
+/* ------------------------------------------------------------
+   8. Greeting Widget
+   ------------------------------------------------------------ */
+.widget--greeting .widget__inner {
+  align-items: center;
+  text-align: center;
+  justify-content: center;
+}
+
+.greeting__message {
+  font-size: var(--font-size-h3);
+  font-weight: var(--font-weight-medium);
+  color: var(--color-text-secondary);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+.greeting__time {
+  font-size: clamp(2.5rem, 6vw, 4rem);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-text-primary);
+  font-variant-numeric: tabular-nums;
+  letter-spacing: 0.04em;
+  line-height: 1;
+}
+
+.greeting__date {
+  font-size: var(--font-size-sm);
+  color: var(--color-text-muted);
+  font-weight: var(--font-weight-medium);
+}
+
+/* ------------------------------------------------------------
+   9. Timer Widget
+   ------------------------------------------------------------ */
+.widget--timer .widget__inner {
+  align-items: center;
+  text-align: center;
+}
+
+.timer__display {
+  font-size: clamp(3rem, 8vw, 5rem);
+  font-weight: var(--font-weight-bold);
+  font-variant-numeric: tabular-nums;
+  color: var(--color-text-primary);
+  letter-spacing: 0.06em;
+  line-height: 1;
+  padding: var(--space-4) 0;
+  transition: color var(--transition-base);
+}
+
+/* Visual indicator when session is done */
+.timer__display.timer--done {
+  color: var(--color-success);
+}
+
+.timer__done-indicator {
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-medium);
+  color: var(--color-success);
+  background-color: #f0fdf4;
+  border: 1px solid #86efac;
+  border-radius: 0.5rem;
+  padding: var(--space-2) var(--space-4);
+}
+
+.timer__done-indicator--hidden {
+  display: none;
+}
+
+.timer__controls {
+  display: flex;
+  gap: var(--space-3);
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+/* ------------------------------------------------------------
+   10. Buttons
+   ------------------------------------------------------------ */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
+  padding: var(--space-2) var(--space-4);
+  font-family: inherit;
+  font-size: var(--font-size-base);
+  font-weight: var(--font-weight-medium);
+  line-height: 1.25;
+  border: 2px solid transparent;
+  border-radius: 0.5rem;
+  cursor: pointer;
+  text-decoration: none;
+  transition:
+    background-color var(--transition-fast),
+    color var(--transition-fast),
+    border-color var(--transition-fast),
+    opacity var(--transition-fast);
+  white-space: nowrap;
+  user-select: none;
+}
+
+.btn:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+/* Primary */
+.btn--primary {
+  background-color: var(--color-accent);
+  color: var(--color-accent-fg);
+  border-color: var(--color-accent);
+}
+
+.btn--primary:hover:not(:disabled) {
+  background-color: var(--color-accent-hover);
+  border-color: var(--color-accent-hover);
+}
+
+/* Secondary */
+.btn--secondary {
+  background-color: transparent;
+  color: var(--color-accent);
+  border-color: var(--color-accent);
+}
+
+.btn--secondary:hover:not(:disabled) {
+  background-color: var(--color-surface-alt);
+}
+
+/* Ghost / subtle */
+.btn--ghost {
+  background-color: transparent;
+  color: var(--color-text-secondary);
+  border-color: var(--color-border);
+}
+
+.btn--ghost:hover:not(:disabled) {
+  background-color: var(--color-surface-alt);
+  color: var(--color-text-primary);
+}
+
+/* Danger */
+.btn--danger {
+  background-color: transparent;
+  color: var(--color-danger);
+  border-color: transparent;
+  padding: var(--space-1) var(--space-2);
+  font-size: var(--font-size-sm);
+}
+
+.btn--danger:hover:not(:disabled) {
+  background-color: #fef2f2;
+  border-color: var(--color-danger);
+}
+
+/* Pressed / active feedback for actions with no immediate visible change */
+.btn:active:not(:disabled) {
+  transform: scale(0.97);
+  opacity: 0.85;
+  transition-duration: 50ms;
+}
+
+/* Programmatic pressed state for actions whose outcome isn't otherwise visible
+   within 100 ms (e.g. Reset when already at 25:00). Lasts 200 ms via JS toggle. */
+.btn--pressed {
+  transform: scale(0.97);
+  opacity: 0.80;
+  transition-duration: 50ms;
+}
+
+.btn--primary.btn--pressed {
+  background-color: var(--color-accent-hover);
+  border-color: var(--color-accent-hover);
+}
+
+.btn--secondary.btn--pressed {
+  background-color: var(--color-surface-alt);
+}
+
+.btn--ghost.btn--pressed {
+  background-color: var(--color-surface-alt);
+  border-color: var(--color-border);
+  color: var(--color-text-primary);
+}
+
+/* ------------------------------------------------------------
+   11. Forms — Shared Add-Form
+   ------------------------------------------------------------ */
+.add-form {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.add-form__field {
+  display: flex;
+  gap: var(--space-2);
+  align-items: stretch;
+}
+
+.add-form__input {
+  flex: 1;
+  padding: var(--space-2) var(--space-3);
+  font-family: inherit;
+  font-size: var(--font-size-base);
+  color: var(--color-text-primary);
+  background-color: var(--color-surface);
+  border: 1.5px solid var(--color-border);
+  border-radius: 0.5rem;
+  transition: border-color var(--transition-fast), box-shadow var(--transition-fast);
+  min-width: 0; /* prevent overflow in flex */
+}
+
+.add-form__input::placeholder {
+  color: var(--color-text-muted);
+}
+
+.add-form__input:focus-visible {
+  border-color: var(--color-accent);
+  box-shadow: 0 0 0 3px rgba(29, 96, 198, 0.2);
+  outline: var(--focus-ring);
+  outline-offset: var(--focus-ring-offset);
+}
+
+.add-form__input.input--error {
+  border-color: var(--color-danger);
+}
+
+.form__error {
+  display: block;
+  font-size: var(--font-size-sm);
+  color: var(--color-danger);
+  min-height: 1.25em; /* reserve space to prevent layout shift */
+}
+
+/* ------------------------------------------------------------
+   12. Task List Widget
+   ------------------------------------------------------------ */
+.task-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  overflow-y: auto;
+  max-height: 60vh;
+}
+
+.task-item {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  padding: var(--space-3) var(--space-3);
+  background-color: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: 0.5rem;
+  transition: background-color var(--transition-fast);
+}
+
+.task-item:hover {
+  background-color: var(--color-surface-alt);
+}
+
+.task-item__checkbox {
+  width: 1.125rem;
+  height: 1.125rem;
+  flex-shrink: 0;
+  accent-color: var(--color-accent);
+  cursor: pointer;
+}
+
+.task-item__title {
+  flex: 1;
+  font-size: var(--font-size-base);
+  color: var(--color-text-primary);
+  word-break: break-word;
+}
+
+.task-item__title--completed {
+  text-decoration: line-through;
+  color: var(--color-completed-text);
+}
+
+.task-item__edit-input {
+  flex: 1;
+  padding: var(--space-1) var(--space-2);
+  font-family: inherit;
+  font-size: var(--font-size-base);
+  color: var(--color-text-primary);
+  border: 1.5px solid var(--color-accent);
+  border-radius: 0.375rem;
+  background-color: var(--color-surface);
+  min-width: 0;
+}
+
+.task-item__edit-input:focus-visible {
+  outline: var(--focus-ring);
+  outline-offset: var(--focus-ring-offset);
+}
+
+.task-item__actions {
+  display: flex;
+  gap: var(--space-1);
+  flex-shrink: 0;
+}
+
+/* ------------------------------------------------------------
+   13. Quick Links Widget
+   ------------------------------------------------------------ */
+.link-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-3);
+}
+
+.link-item {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-1);
+}
+
+.link-item__btn {
+  display: inline-flex;
+  align-items: center;
+  padding: var(--space-2) var(--space-4);
+  background-color: var(--color-surface-alt);
+  color: var(--color-accent);
+  border: 1.5px solid var(--color-border);
+  border-radius: 0.5rem;
+  font-family: inherit;
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-medium);
+  text-decoration: none;
+  cursor: pointer;
+  transition:
+    background-color var(--transition-fast),
+    border-color var(--transition-fast);
+  word-break: break-word;
+  max-width: 200px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.link-item__btn:hover {
+  background-color: #e8edf8;
+  border-color: var(--color-accent);
+}
+
+.link-item__delete {
+  background: none;
+  border: none;
+  color: var(--color-text-muted);
+  cursor: pointer;
+  font-size: 1rem;
+  padding: var(--space-1);
+  border-radius: 50%;
+  line-height: 1;
+  transition: color var(--transition-fast), background-color var(--transition-fast);
+}
+
+.link-item__delete:hover {
+  color: var(--color-danger);
+  background-color: #fef2f2;
+}
+
+.link-item__delete:focus-visible {
+  outline: var(--focus-ring);
+  outline-offset: var(--focus-ring-offset);
+}
+
+/* ------------------------------------------------------------
+   14. Responsive Tweaks
+   ------------------------------------------------------------ */
+
+/* Narrow viewports (360 px – 480 px) */
+@media (max-width: 480px) {
+  body {
+    padding: var(--space-3) var(--space-3);
+  }
+
+  .greeting__time {
+    font-size: 2.5rem;
+  }
+
+  .timer__display {
+    font-size: 3rem;
+  }
+
+  .timer__controls {
+    gap: var(--space-2);
+  }
+
+  .btn {
+    padding: var(--space-2) var(--space-3);
+    font-size: var(--font-size-sm);
+  }
+
+  .widget__inner {
+    padding: var(--space-4);
+  }
+}
+
+/* Wide viewports (1920 px+) */
+@media (min-width: 1920px) {
+  body {
+    padding: var(--space-8) var(--space-12);
+  }
+}
+
+/* Ultra-wide (2560 px) — cap max-width for readability */
+@media (min-width: 2560px) {
+  .dashboard {
+    max-width: 1800px;
+  }
+}
+
+/* ------------------------------------------------------------
+   15. Print — hide non-essential chrome
+   ------------------------------------------------------------ */
+@media print {
+  .timer__controls,
+  .add-form,
+  .task-item__actions,
+  .link-item__delete,
+  .banner {
+    display: none !important;
+  }
+}
