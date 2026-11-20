@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="id" data-theme="light">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>TODO Dashboard</title>
+  <title>Life Dashboard — TODO &amp; Focus</title>
   <link rel="stylesheet" href="css/style.css" />
 </head>
 <body>
@@ -12,16 +12,46 @@
   <div id="storage-banner" class="banner banner--hidden" role="alert" aria-live="polite">
     <span class="banner__icon" aria-hidden="true">⚠</span>
     <span class="banner__message">
-      Storage is unavailable in this session. Your tasks and links will not be saved between page reloads.
     </span>
   </div>
+
+  <!-- Top Utility Bar: Theme Toggle & Keyboard Shortcut Hint -->
+  <header class="topbar">
+    <div class="topbar__brand">
+      <span class="topbar__logo" aria-hidden="true">✦</span>
+      <span class="topbar__title">TODO List Dashboard</span>
+    </div>
+    <div class="topbar__actions">
+      <button id="shortcut-help-btn" class="btn btn--ghost btn--sm" type="button" aria-label="Show keyboard shortcuts (Press ?)">
+        ⌨️ Shortcuts <kbd>?</kbd>
+      </button>
+      <button id="theme-toggle" class="btn btn--ghost btn--sm" type="button" aria-label="Toggle dark or light theme">
+        <span id="theme-icon" aria-hidden="true">🌙</span>
+        <span id="theme-text">Dark</span>
+      </button>
+    </div>
+  </header>
 
   <main class="dashboard">
 
     <!-- Widget 1: Greeting & Clock -->
     <section id="greeting" class="widget widget--greeting" aria-label="Greeting and clock">
       <div class="widget__inner">
-        <p id="greeting-message" class="greeting__message">Good Morning</p>
+        <div class="greeting__top">
+          <p id="greeting-message" class="greeting__message">Good Morning</p>
+          <button id="edit-name-btn" class="btn btn--ghost btn--xs" type="button" aria-label="Set custom name">
+            ✏️ Name
+          </button>
+        </div>
+
+        <!-- Inline Custom Name Form -->
+        <form id="name-form" class="name-form name-form--hidden" aria-label="Set custom greeting name">
+          <label for="user-name-input" class="sr-only">Your name</label>
+          <input id="user-name-input" class="add-form__input input--sm" type="text" placeholder="Your name…" maxlength="30" />
+          <button class="btn btn--primary btn--xs" type="submit">Save</button>
+          <button id="cancel-name-btn" class="btn btn--ghost btn--xs" type="button">Cancel</button>
+        </form>
+
         <p id="greeting-time" class="greeting__time" aria-live="polite" aria-atomic="true">00:00:00</p>
         <p id="greeting-date" class="greeting__date">Monday, 01 January 2026</p>
       </div>
@@ -30,7 +60,18 @@
     <!-- Widget 2: Focus Timer -->
     <section id="timer" class="widget widget--timer" aria-label="Focus timer">
       <div class="widget__inner">
-        <h2 class="widget__heading">Focus Timer</h2>
+        <div class="widget__header-row">
+          <h2 class="widget__heading widget__heading--no-border">Focus Timer</h2>
+          <div class="timer__presets" role="group" aria-label="Timer duration presets">
+            <button type="button" class="btn btn--chip is-active" data-minutes="25">25m</button>
+            <button type="button" class="btn btn--chip" data-minutes="15">15m</button>
+            <button type="button" class="btn btn--chip" data-minutes="5">5m</button>
+            <label for="timer-custom-min" class="sr-only">Custom minutes</label>
+            <input id="timer-custom-min" class="timer__custom-input" type="number" min="1" max="120" placeholder="Min" />
+            <button id="timer-set-custom" class="btn btn--ghost btn--xs" type="button">Set</button>
+          </div>
+        </div>
+
         <div id="timer-display" class="timer__display" aria-live="polite" aria-atomic="true">25:00</div>
         <div id="timer-done-indicator" class="timer__done-indicator timer__done-indicator--hidden" role="status">
           Session complete! Great work.
@@ -43,12 +84,40 @@
       </div>
     </section>
 
-    <!-- Widget 3: To-Do List -->
+    <!-- Widget 3: To-Do List (with Smart NLP & Multi-View Toggle) -->
     <section id="task-list" class="widget widget--tasks" aria-label="To-do list">
       <div class="widget__inner">
-        <h2 class="widget__heading">To-Do List</h2>
+        <div class="widget__header-row">
+          <div class="tasks__title-group">
+            <h2 class="widget__heading widget__heading--no-border">To-Do List</h2>
+            <span id="task-stats" class="badge">0/0 done</span>
+          </div>
 
-        <!-- Add task form -->
+          <!-- Multi-View Toggle & Sort -->
+          <div class="tasks__toolbar">
+            <div class="view-switcher" role="tablist" aria-label="Task view mode">
+              <button type="button" role="tab" class="view-switcher__btn is-active" data-view="list" aria-selected="true" title="List View (Press 1)">
+                ☰ List
+              </button>
+              <button type="button" role="tab" class="view-switcher__btn" data-view="kanban" aria-selected="false" title="Kanban Board (Press 2)">
+                ▤ Kanban
+              </button>
+              <button type="button" role="tab" class="view-switcher__btn" data-view="calendar" aria-selected="false" title="Calendar Timeline (Press 3)">
+                📅 Timeline
+              </button>
+            </div>
+
+            <label for="task-sort" class="sr-only">Sort tasks</label>
+            <select id="task-sort" class="select-sm" aria-label="Sort tasks">
+              <option value="oldest">Oldest</option>
+              <option value="newest">Newest</option>
+              <option value="deadline">Deadline</option>
+              <option value="alpha">A–Z</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- Smart NLP Add Task Form -->
         <form id="add-task-form" class="add-form" novalidate aria-label="Add a new task">
           <div class="add-form__field">
             <label for="task-input" class="sr-only">New task title</label>
@@ -56,56 +125,65 @@
               id="task-input"
               class="add-form__input"
               type="text"
-              placeholder="Add a new task…"
+              placeholder='Ketik misal: "Beli kopi besok jam 2 siang #pribadi" (Tekan N)'
               autocomplete="off"
-              aria-describedby="task-input-error"
+              aria-describedby="task-nlp-preview task-input-error"
             />
             <button class="btn btn--primary" type="submit" aria-label="Add task">Add</button>
           </div>
+          <!-- Live NLP Detection Preview -->
+          <div id="task-nlp-preview" class="nlp-preview nlp-preview--hidden" aria-live="polite"></div>
           <span id="task-input-error" class="form__error" role="alert" aria-live="polite"></span>
         </form>
 
-        <!-- Task items rendered here by JS -->
-        <ul id="task-items" class="task-list" aria-label="Tasks" aria-live="polite">
-          <!-- Task items injected by TaskListWidget.render() -->
-        </ul>
+        <!-- Dynamic Task View Container (List / Kanban / Calendar) -->
+        <div id="task-view-container" class="task-view-container" aria-live="polite">
+          <!-- Rendered by TaskListWidget.render() -->
+        </div>
       </div>
     </section>
 
     <!-- Widget 4: Quick Links -->
     <section id="quick-links" class="widget widget--links" aria-label="Quick links">
       <div class="widget__inner">
-        <h2 class="widget__heading">Quick Links</h2>
+        <div class="widget__header-row">
+          <h2 class="widget__heading widget__heading--no-border">Quick Links</h2>
+          <span id="link-counter" class="badge">0 / 20</span>
+        </div>
 
         <!-- Add link form -->
-        <form id="add-link-form" class="add-form" novalidate aria-label="Add a quick link">
-          <div class="add-form__field">
-            <label for="link-label-input" class="sr-only">Link label</label>
-            <input
-              id="link-label-input"
-              class="add-form__input"
-              type="text"
-              placeholder="Label (max 50 chars)"
-              maxlength="50"
-              autocomplete="off"
-              aria-describedby="link-label-error"
-            />
+        <form id="add-link-form" class="add-form add-form--inline-links" novalidate aria-label="Add a quick link">
+          <div class="link-inputs-row">
+            <div class="add-form__col">
+              <label for="link-label-input" class="sr-only">Link label</label>
+              <input
+                id="link-label-input"
+                class="add-form__input"
+                type="text"
+                placeholder="Label (max 50 chars)"
+                maxlength="50"
+                autocomplete="off"
+                aria-describedby="link-label-error"
+              />
+              <span id="link-label-error" class="form__error" role="alert" aria-live="polite"></span>
+            </div>
+
+            <div class="add-form__col add-form__col--grow">
+              <label for="link-url-input" class="sr-only">Link URL</label>
+              <input
+                id="link-url-input"
+                class="add-form__input"
+                type="url"
+                placeholder="https://example.com"
+                autocomplete="off"
+                aria-describedby="link-url-error"
+              />
+              <span id="link-url-error" class="form__error" role="alert" aria-live="polite"></span>
+            </div>
+
+            <button class="btn btn--primary" type="submit" aria-label="Add link">Add Link</button>
           </div>
-          <span id="link-label-error" class="form__error" role="alert" aria-live="polite"></span>
-          <div class="add-form__field">
-            <label for="link-url-input" class="sr-only">Link URL</label>
-            <input
-              id="link-url-input"
-              class="add-form__input"
-              type="url"
-              placeholder="https://example.com"
-              autocomplete="off"
-              aria-describedby="link-url-error"
-            />
-          </div>
-          <span id="link-url-error" class="form__error" role="alert" aria-live="polite"></span>
           <span id="link-count-error" class="form__error" role="alert" aria-live="polite"></span>
-          <button class="btn btn--primary" type="submit" aria-label="Add link">Add Link</button>
         </form>
 
         <!-- Link buttons rendered here by JS -->
@@ -117,7 +195,70 @@
 
   </main>
 
-  <!-- Inlined audio alert for timer completion (base64 data-URI set by JS) -->
+  <!-- Task Detail & Edit Modal (Esc to close) -->
+  <div id="task-modal" class="modal modal--hidden" role="dialog" aria-modal="true" aria-labelledby="modal-title">
+    <div class="modal__backdrop" data-close-modal="true"></div>
+    <div class="modal__panel">
+      <div class="modal__header">
+        <h3 id="modal-title" class="modal__title">Detail Tugas</h3>
+        <button id="modal-close-btn" class="btn btn--ghost btn--xs" type="button" aria-label="Close modal (Esc)">✕ Esc</button>
+      </div>
+      <form id="modal-edit-form" class="modal__body">
+        <div class="modal__field">
+          <label for="modal-task-title" class="modal__label">Judul Tugas</label>
+          <input id="modal-task-title" class="add-form__input" type="text" required />
+        </div>
+        <div class="modal__row">
+          <div class="modal__field">
+            <label for="modal-task-status" class="modal__label">Status (Kanban)</label>
+            <select id="modal-task-status" class="add-form__input">
+              <option value="todo">To Do</option>
+              <option value="inprogress">In Progress</option>
+              <option value="done">Done</option>
+            </select>
+          </div>
+          <div class="modal__field">
+            <label for="modal-task-tag" class="modal__label">Tag (#kategori)</label>
+            <input id="modal-task-tag" class="add-form__input" type="text" placeholder="pribadi" maxlength="25" />
+          </div>
+        </div>
+        <div class="modal__field">
+          <label for="modal-task-deadline" class="modal__label">Deadline</label>
+          <input id="modal-task-deadline" class="add-form__input" type="datetime-local" />
+        </div>
+        <div class="modal__footer">
+          <button type="button" id="modal-delete-btn" class="btn btn--danger">Hapus Tugas</button>
+          <div class="modal__footer-right">
+            <button type="button" class="btn btn--ghost" data-close-modal="true">Batal</button>
+            <button type="submit" class="btn btn--primary">Simpan Perubahan</button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Keyboard Shortcuts Help Modal -->
+  <div id="shortcuts-modal" class="modal modal--hidden" role="dialog" aria-modal="true" aria-labelledby="shortcuts-title">
+    <div class="modal__backdrop" data-close-shortcuts="true"></div>
+    <div class="modal__panel modal__panel--sm">
+      <div class="modal__header">
+        <h3 id="shortcuts-title" class="modal__title">Keyboard Shortcuts</h3>
+        <button class="btn btn--ghost btn--xs" type="button" data-close-shortcuts="true" aria-label="Close shortcuts">✕ Esc</button>
+      </div>
+      <ul class="shortcuts-list">
+        <li><span>Tambah tugas baru</span> <kbd>N</kbd></li>
+        <li><span>Mulai / Jeda Focus Timer</span> <kbd>Space</kbd></li>
+        <li><span>Pindah ke List View</span> <kbd>1</kbd></li>
+        <li><span>Pindah ke Kanban View</span> <kbd>2</kbd></li>
+        <li><span>Pindah ke Calendar/Timeline</span> <kbd>3</kbd></li>
+        <li><span>Ganti Light / Dark Mode</span> <kbd>D</kbd></li>
+        <li><span>Tutup Modal / Batal Edit</span> <kbd>Esc</kbd></li>
+        <li><span>Buka panduan ini</span> <kbd>?</kbd></li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- Inlined audio alert for timer completion -->
   <audio id="timer-alert" aria-hidden="true"></audio>
 
   <script src="js/app.js"></script>
